@@ -1,14 +1,7 @@
 const express = require('express');
-const roomController = require('./../controllers/roomController');
+const roomController = require('../controllers/roomController');
 
 const router = express.Router();
-
-// router.param('id', roomController.checkID);
-
-// TODO: Create a checkBody middleware function
-// TODO: Check if body contains the type and price properties
-// If not, send back 400 (Bad request)
-// Add it to the post handler stack
 
 router.param('id', (req, res, next, val) => {
   console.log(`Tour id is ${val}`);
