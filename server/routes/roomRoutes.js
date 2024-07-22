@@ -3,7 +3,7 @@ const roomController = require('./../controllers/roomController');
 
 const router = express.Router();
 
-router.param('id', roomController.checkID);
+// router.param('id', roomController.checkID);
 
 // TODO: Create a checkBody middleware function
 // TODO: Check if body contains the type and price properties
@@ -18,7 +18,7 @@ router.param('id', (req, res, next, val) => {
 router
   .route('/')
   .get(roomController.getAllRooms)
-  .post(roomController.checkBody, roomController.createRoom);
+  .post(roomController.createRoom);
 
 router
   .route('/:id')
