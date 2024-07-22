@@ -1,85 +1,95 @@
-const fs = require('fs');
+const Room = require('../model/roomModel');
 
-const rooms = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/rooms.json`)
-);
+exports.getAllRooms = async (req, res) => {
+  try {
+    const rooms = await Room.find();
 
-exports.checkID = (req, res, next, val) => {
-  if (req.params.id * 1 > rooms.length) {
-    return res.status(404).json({
+    res.status(200).json({
+      status: 'success',
+      requestedAt: req.requestTime,
+      results: rooms.length,
+      data: {
+        rooms: rooms,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
       status: 'fail',
-      message: 'Invalid ID',
+      message: 'Invalid request.',
     });
   }
-  next();
 };
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.type || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price',
+exports.getRoom = async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id);
+    // Room.findOne({ _id: req.params.id })
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        room,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'Fail',
+      message: err,
     });
   }
-  next();
 };
 
-exports.getAllRooms = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    results: rooms.length,
-    data: {
-      rooms: rooms,
-    },
-  });
+exports.createRoom = async (req, res) => {
+  try {
+    const newRoom = await Room.create(req.body).then();
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        room: newRoom,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'Invalid data sent!',
+    });
+  }
 };
 
-exports.getRoom = (req, res) => {
-  console.log(req.params);
-  const id = req.params.id * 1;
-  const room = rooms.find((el) => el.id === id);
+exports.updateRoom = async (req, res) => {
+  try {
+    const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-  res.status(200).json({
-    status: 'success',
-    data: {
-      room,
-    },
-  });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        room,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'Invalid data sent!',
+    });
+  }
 };
 
-exports.createRoom = (req, res) => {
-  const newId = rooms[rooms.length - 1].id + 1;
-  const newRoom = Object.assign({ id: newId }, req.body);
+exports.deleteRoom = async (req, res) => {
+  try {
+    await Room.findByIdAndDelete(req.params.id);
 
-  rooms.push(newRoom);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/rooms.json`,
-    JSON.stringify(rooms),
-    (err) => {
-      res.status(201).json({
-        status: 'success',
-        data: {
-          room: newRoom,
-        },
-      });
-    }
-  );
-};
-
-exports.updateRoom = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      room: '<Updated room>',
-    },
-  });
-};
-
-exports.deleteRoom = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'Invalid data sent!',
+    });
+  }
 };
