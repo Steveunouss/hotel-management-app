@@ -1,12 +1,26 @@
 const Room = require('../models/roomModel');
+const APIFeatures = require('../utils/apiFeatures');
+
+exports.aliasTopRooms = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = 'price';
+  req.query.fields = 'name,price';
+  next();
+};
 
 exports.getAllRooms = async (req, res) => {
   try {
-    const rooms = await Room.find();
+    // EXECUTE THE QUERY
+    const features = new APIFeatures(Room.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const rooms = await features.query;
 
+    // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      requestedAt: req.requestTime,
       results: rooms.length,
       data: {
         rooms: rooms,

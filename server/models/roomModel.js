@@ -5,6 +5,7 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A room must have a name'],
     unique: true,
+    trim: true,
   },
   price: {
     type: Number,
@@ -17,13 +18,9 @@ const roomSchema = new mongoose.Schema({
   img: {
     type: [String],
   },
-  roomNumbers: {
-    type: [
-      {
-        number: Number,
-        unavailableDates: [Date],
-      },
-    ],
+  status: {
+    type: String,
+    required: [true, 'A room must have a status'],
   },
 });
 
