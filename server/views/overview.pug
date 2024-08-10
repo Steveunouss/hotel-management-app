@@ -1,0 +1,31 @@
+extends base
+
+block content
+  main.main 
+    .card-container
+      each room in rooms 
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`/img/rooms/${room.imageCover}`, alt=`${room.name}`)
+
+          .card__details
+            h4.card__sub-heading=room.name
+            p.card__text=room.desc
+            .card__data
+              svg.card__icon
+                use(xlink:href='/img/icons.svg#icon-map-pin')
+              span=room.status
+
+          .card__footer
+            p
+              span.card__footer-value= `$${room.price} `
+              span.card__footer-text per night
+            p.card__ratings
+              span.card__footer-value= room.ratingsAverage
+              | 
+              span.card__footer-text= `rating (${room.ratingsQuantity})`
+            a.btn.btn--green.btn--small(href=`/room/${room.slug}`) Details
+            
+
