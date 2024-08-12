@@ -15,6 +15,7 @@ router.get(
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router.get('/room/:slug', authController.isLoggedIn, viewsController.getRoom);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
+router.get('/signup', viewsController.getSignupForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/my-rooms', authController.protect, viewsController.getMyRooms);
 router.get(

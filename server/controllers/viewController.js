@@ -48,6 +48,12 @@ exports.getAccount = (req, res) => {
   });
 };
 
+exports.getSignupForm = catchAsync(async (req, res, next) => {
+  res.status(200).render('signup', {
+    title: 'Create New Account',
+  });
+});
+
 exports.getMyRooms = catchAsync(async (req, res, next) => {
   // find all bookings
   const bookings = await Booking.find({ user: req.user.id });
