@@ -1,9 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const stripe = require('stripe')([process.env.STRIPE_SECRET_KEY]);
+const factory = require('./handlerFactory');
 const Room = require('../models/roomModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
 // const factory = require('./handlerFactory');
+
+exports.getAllBookings = factory.getAll(Booking);
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // Get the currently booked room

@@ -1,0 +1,27 @@
+extends base
+
+block content
+  main.main 
+    .card-container
+      each car in cars 
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`/img/cars/${car.imageCover}`, alt=`${car.name}`)
+
+          .card__details
+            h4.card__sub-heading=car.name
+            p.card__text=car.desc
+            .card__data
+              svg.card__icon
+                use(xlink:href='/img/icons.svg#icon-map-pin')
+              span=car.status
+
+          .card__footer
+            p
+              span.card__footer-value= `$${car.price} `
+              span.card__footer-text per day
+            a.btn.btn--green.btn--small(href=`/car/${car.slug}`) Details
+            
+

@@ -1,0 +1,25 @@
+extends base
+
+block content
+  main.main 
+    .list-container
+      each room in rooms 
+        .list-item
+          .list-item__header
+            h4.list-item__name= room.name
+
+          .list-item__details
+            p.list-item__desc= room.desc
+            .list-item__status
+              svg.list-item__icon
+                use(xlink:href='/img/icons.svg#icon-map-pin')
+              span= "Booked"
+
+          .list-item__footer
+            p.list-item__price
+              span.list-item__price-value= `$${room.price} `
+              span.list-item__price-text per night
+            p.list-item__ratings
+              span.list-item__ratings-value= room.ratingsAverage
+              | 
+              span.list-item__ratings-text= `rating (${room.ratingsQuantity})`

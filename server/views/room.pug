@@ -23,8 +23,6 @@ block content
       .heading-box__group
         .heading-box__detail
           svg.heading-box__icon
-            use(xlink:href='/img/icons.svg#icon-map-pin')
-          span.heading-box__text= room.status
 
   section.section-description
     .overview-box
@@ -33,6 +31,7 @@ block content
           h2.heading-secondary.ma-bt-lg Quick facts
 
           +overviewBox('Created on', 'August 2024', 'calendar')
+          +overviewBox('Room Status', `${room.status}`, 'credit-card')
           +overviewBox('Rating', `${room.ratingsAverage} / 5`, 'star')
           +overviewBox('Number of ratings', `${room.ratingsQuantity}`, 'star')
 

@@ -15,9 +15,11 @@ const cors = require('cors');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const roomRouter = require('./routes/roomRoutes');
+const carRouter = require('./routes/carRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingCarRouter = require('./routes/bookingCarRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
@@ -84,9 +86,11 @@ app.use((req, res, next) => {
 
 app.use('/', viewRouter);
 app.use('/api/v1/rooms', roomRouter);
+app.use('/api/v1/cars', carRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter); //Its called mounting the router on a new path
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/bookings-car', bookingCarRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

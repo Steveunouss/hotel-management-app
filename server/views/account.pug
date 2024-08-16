@@ -12,19 +12,17 @@ block content
     .user-view
       nav.user-view__menu
         ul.side-nav
-          +navItem('#', 'Settings', 'settings', true)
           +navItem('/my-rooms', 'My room bookings', 'briefcase')
-          +navItem('#', 'My reviews', 'star')
-          +navItem('#', 'Billing', 'credit-card')
+          +navItem('/my-cars', 'My car bookings', 'briefcase')
 
         - if (user.role === 'admin')
           .admin-nav
             h5.admin-nav__heading Admin
             ul.side-nav
               +navItem('#', 'Manage rooms', 'map')
-              +navItem('#', 'Manage users', 'users')
-              +navItem('#', 'Manage reviews', 'star')
-              +navItem('#', 'Manage bookings', 'briefcase')
+              +navItem('#', 'Manage cars', 'map')
+              +navItem('/bookings', 'View room bookings', 'briefcase')
+              +navItem('/bookings-car', 'View car bookings', 'briefcase')
 
       .user-view__content
         .user-view__form-container
