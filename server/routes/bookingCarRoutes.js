@@ -1,15 +1,15 @@
 const express = require('express');
-const bookingController = require('../controllers/bookingController');
+const bookingCarController = require('../controllers/bookingCarController');
 const authController = require('../controllers/authController');
 
 // By default, each router only has access to the parameters of their specific routes
 const router = express.Router();
 
-router.route('/').get(bookingController.getAllBookings);
+router.route('/cars').get(bookingCarController.getAllBookingsCar);
 
 router.get(
-  '/checkout-session/:roomId',
+  '/checkout-session/:carId',
   authController.protect,
-  bookingController.getCheckoutSession,
+  bookingCarController.getCheckoutSessionCar,
 );
 module.exports = router;

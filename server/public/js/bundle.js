@@ -12839,7 +12839,7 @@ var updateRoomData = exports.updateRoomData = /*#__PURE__*/function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.bookRoom = void 0;
+exports.bookRoom = exports.bookCar = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -12849,14 +12849,14 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; } /* eslint-disable */
 var stripe = Stripe('pk_test_TukbwTWymFL5QG05ktPopbTM');
 var bookRoom = exports.bookRoom = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(tourId) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(roomId) {
     var session;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
+          return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(roomId));
         case 3:
           session = _context.sent;
           console.log(session);
@@ -12877,6 +12877,37 @@ var bookRoom = exports.bookRoom = /*#__PURE__*/function () {
   }));
   return function bookRoom(_x) {
     return _ref.apply(this, arguments);
+  };
+}();
+var bookCar = exports.bookCar = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(carId) {
+    var session;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          _context2.next = 3;
+          return (0, _axios.default)("/api/v1/bookings-car/checkout-session/".concat(carId));
+        case 3:
+          session = _context2.sent;
+          console.log(session);
+          window.location.replace(session.data.session.url);
+          console.log(session.data.session.url);
+          _context2.next = 13;
+          break;
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](0);
+          console.log(_context2.t0);
+          (0, _alerts.showAlert)('error', _context2.t0);
+        case 13:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 9]]);
+  }));
+  return function bookCar(_x2) {
+    return _ref2.apply(this, arguments);
   };
 }();
 },{"axios":"../../../node_modules/axios/index.js","./alerts":"alerts.js"}],"index.js":[function(require,module,exports) {
@@ -13025,6 +13056,7 @@ var logOutBtn = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var roomDataForm = document.querySelector('.form-user-data');
 var bookBtn = document.getElementById('book-room');
+var bookCarBtn = document.getElementById('book-car');
 if (loginForm) loginForm.addEventListener('submit', function (e) {
   e.preventDefault();
   var email = document.getElementById('email').value;
@@ -13050,6 +13082,11 @@ if (bookBtn) bookBtn.addEventListener('click', function (e) {
   e.target.textContent = 'Processing...';
   var roomId = e.target.dataset.roomId;
   (0, _stripe.bookRoom)(roomId);
+});
+if (bookCarBtn) bookCarBtn.addEventListener('click', function (e) {
+  e.target.textContent = 'Processing...';
+  var carId = e.target.dataset.carId;
+  (0, _stripe.bookCar)(carId);
 });
 if (signupForm) signupForm.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -13085,7 +13122,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60976" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58806" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

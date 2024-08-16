@@ -1,5 +1,4 @@
 extends base
-include _reviewCard
 
 block append head 
   script(src='https://js.stripe.com/v3/')
@@ -15,7 +14,7 @@ block content
   section.section-header
     .header__hero
       .header__hero-overlay &nbsp;
-      img.header__hero-img(src=`/img/rooms/${room.imageCover}`, alt=`${room.name}`)
+      img.header__hero-img(src=`/img/cars/${car.imageCover}`, alt=`${car.name}`)
 
     .heading-box
       h1.heading-primary
@@ -23,8 +22,6 @@ block content
       .heading-box__group
         .heading-box__detail
           svg.heading-box__icon
-            use(xlink:href='/img/icons.svg#icon-map-pin')
-          span.heading-box__text= car.status
 
   section.section-description
     .overview-box
@@ -33,24 +30,20 @@ block content
           h2.heading-secondary.ma-bt-lg Quick facts
 
           +overviewBox('Created on', 'August 2024', 'calendar')
-          +overviewBox('Rating', `${car.ratingsAverage} / 5`, 'star')
-          +overviewBox('Number of ratings', `${car.ratingsQuantity}`, 'star')
+          +overviewBox('Car status', `${car.status}`, 'credit-card')
 
     .description-box
       h2.heading-secondary.ma-bt-lg= `About ${car.name}`
       p.description__text= car.desc
 
   section.section-pictures
-    each img, i in room.img
+    each img, i in car.img
       .picture-box
-        img.picture-box__img.picture-box__img--1(src=`/img/tours/${img}`, alt=`${room.name} ${i+1}`, class= `picture-box__img.picture-box__img--${i + 1}` )
+        img.picture-box__img.picture-box__img--1(src=`/img/tours/${img}`, alt=`${car.name} ${i+1}`, class= `picture-box__img.picture-box__img--${i + 1}` )
 
-  section.section-reviews
-    .reviews
-      each review in car.reviews
-        +reviewCard(review)
+  section.section-reviews-car
 
-  section.section-cta
+  section.section-cta-car
     .cta
       .cta__img.cta__img--logo
         img(src='/img/logo-white.png', alt='Natours logo')

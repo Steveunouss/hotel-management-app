@@ -152,18 +152,8 @@ body {
   line-height: 1;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right bottom,
-    from(rgba(125, 213, 111, 0.85)),
-    to(rgba(40, 180, 135, 0.85))
-  );
-  background-image: linear-gradient(
-    to bottom right,
-    rgba(125, 213, 111, 0.85),
-    rgba(40, 180, 135, 0.85)
-  );
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#bd5b26), to(#9b674b));
+  background-image: linear-gradient(to bottom right, #82482a, #886a59);
 }
 
 .heading-primary {
@@ -376,7 +366,7 @@ body {
     to(#28b487)
   );
   background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
-  opacity: 0.85;
+  opacity: 0.01;
 }
 
 .heading-box {
@@ -599,6 +589,25 @@ body {
   );
 }
 
+.section-reviews-car {
+  padding: calc(.0rem + var(--section-rotate)) 0;
+  position: relative;
+  z-index: 1000;
+  clip-path: polygon(
+    0 var(--section-rotate),
+    100% 0,
+    100% calc(100% - var(--section-rotate)),
+    0 100%
+  );
+  -webkit-clip-path: polygon(
+    0 var(--section-rotate),
+    100% 0,
+    100% calc(100% - var(--section-rotate)),
+    0 100%
+  );
+}
+
+
 .reviews {
   padding: 5rem 0;
   display: grid;
@@ -680,6 +689,11 @@ body {
   padding: 3rem;
   padding-bottom: 11rem;
   padding-top: calc(15rem + var(--section-rotate));
+  background-color: #f7f7f7;
+}
+
+.section-cta-car {
+  margin-top: calc(0px - var(--section-rotate));
   background-color: #f7f7f7;
 }
 
@@ -1322,4 +1336,116 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+
+/* Container for the list */
+.list-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Increased gap for better spacing */
+}
+
+/* Individual list item */
+.list-item {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.list-item:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Header with room name */
+.list-item__header {
+  font-size: 1.75rem; /* Increased font size */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Room description text */
+.list-item__desc {
+  font-size: 1.125rem; /* Slightly larger for better readability */
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Room status section */
+.list-item__status {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.list-item__icon {
+  width: 1.5rem; /* Increased icon size */
+  height: 1.5rem;
+  fill: #ff5722; /* Customize the icon color */
+  margin-right: 0.5rem;
+}
+
+/* Footer with price and ratings */
+.list-item__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+}
+
+.list-item__price-value {
+  font-size: 1.5rem; /* Larger font size for price */
+  font-weight: bold;
+  color: #333;
+}
+
+.list-item__price-text {
+  font-size: 1rem;
+  color: #888;
+}
+
+.list-item__ratings-value {
+  font-size: 1.5rem; /* Larger font size for ratings */
+  font-weight: bold;
+  color: #333;
+}
+
+.list-item__ratings-text {
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Button styling */
+.btn--primary {
+  background-color: #28b487;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn--primary:hover {
+  background-color: #239b70;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.btn--small {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
 }
